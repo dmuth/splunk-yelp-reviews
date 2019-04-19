@@ -7,7 +7,9 @@
 
 
 import argparse
+import datetime
 import logging
+import re
 
 from bs4 import BeautifulSoup
 import requests
@@ -40,18 +42,34 @@ def getHtml(url):
 #
 # Parse HTML from a specific review and return an array of reviews
 #
-def parseHtml(html):
+def parseHtml(soup):
 
 	retval = []
-	soup = BeautifulSoup(html, 'html.parser')
 	
 	for review in soup.find_all("div", {"class": "review-content"}):
 
 		row = {}
 		
-		row["date"] = review.find_all("span", {"class": "rating-qualifier"})[0].text
+		#
+		# Parse our date
+		#
+		date = review.find_all("span", {"class": "rating-qualifier"})[0].text
+		date = re.sub("[^/0-9]", "", date)
+		date_time_obj = datetime.datetime.strptime(date, '%m/%d/%Y')
+		date = date_time_obj.strftime("%Y-%m-%dT%H:%M:%S.000")
+
+		row["date"] = date
+
+
+		#
+		# Grab our review
+		#
 		row["review"] = review.find_all("p")[0].text
 
+
+		#
+		# Parse our stars
+		#
 		stars = review.find_all("div", {"class": "i-stars"})[0]["title"]
 		if stars == "5.0 star rating":
 			row["stars"] = 5
@@ -68,7 +86,6 @@ def parseHtml(html):
 
 		retval.append(row)
 
-
 	return(retval)
 
 
@@ -78,20 +95,50 @@ def parseHtml(html):
 #
 def getReviews(url):
 
-	logging.info("Fetching URL: {}...".format(url))
-	html = getHtml(url)
+	retval = []
 
-	logging.info("Parsing URL: {}...".format(url))
-	reviews = parseHtml(html)
+	while True:
+
+		logging.info("Fetching URL: {}...".format(url))
+		html = getHtml(url)
+		soup = BeautifulSoup(html, 'html.parser')
+
+		logging.info("Parsing URL: {}...".format(url))
+		reviews = parseHtml(soup)
+		logging.info("Fetched {} reviews".format(len(reviews)))
+		retval = retval + reviews
+
+		next_page = soup.find_all("a", {"class": "next"})
+		if next_page:
+			url = next_page[0]["href"]
+			logging.info("Found next page: {}".format(url))
+		else:
+			logging.info("No more pages found, bailing out!")
+			break
+
+	return(retval)
 
 
+#
+# Print up our reviews as JSON, one event per line.
+#
+def printReviews(reviews):
 
+	for review in reviews:
+		print(review)
+
+
+#
+# Our main entry point.
+#
 def main(args):
 
 	for url in args.urls:
 		reviews = getReviews(url)
+		logging.info("Fetched {} reviews in total from URL {}".format(len(reviews), url))
+		printReviews(reviews)
 
 
 main(args)
-# requirements.txt when done!
+
 
