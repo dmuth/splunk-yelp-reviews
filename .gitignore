@@ -6,3 +6,5 @@
 splunk-lab.sh
 data/
 
+logs/*
+
