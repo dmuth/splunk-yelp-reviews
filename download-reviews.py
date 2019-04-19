@@ -8,6 +8,7 @@
 
 import argparse
 import datetime
+import json
 import logging
 import re
 
@@ -125,7 +126,7 @@ def getReviews(url):
 def printReviews(reviews):
 
 	for review in reviews:
-		print(review)
+		print(json.dumps(review))
 
 
 #
