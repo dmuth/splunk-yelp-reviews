@@ -28,10 +28,31 @@ app I built to effortlessly run Splunk in a Docker container.
 - `pip3 install -r ./requirements.txt` - Install required Python modules
 - `./bin/download-reviews.sh ./urls.txt` - Download reviews from Yelp. Change `urls.txt` with URLs for different venues on Yelp as needed.
 - `SPLUNK_PASSWORD=password1 SPLUNK_START_ARGS=--accept-license ./bin/start.sh` - Start Splunk!
-- Go to <a href="https://localhost:8000/">https://localhost:8000/</a>, log in with the 
-password you set, and you're in!
+- Go to <a href="https://localhost:8000/en-US/app/search/venue_report">https://localhost:8000/en-US/app/search/venue_report</a>, log in with the password you set, and you'll see the Yelp Reviews Dashboard.
 
 When done, run `./bin/stop.sh` or `./bin/clean.sh` to stop Splunk or clean up.
+
+
+## Troubleshooting
+
+- Q: Dashboards show ` Search is waiting for input...`
+- A: You need to select a venue in the dropdown!  If no items are in the dropdown, that means no data was ingested.  Did you run `./bin/download-reviews.sh`?
+
+
+## Credits
+
+I'd like to thank <a href="http://splunk.com/">Splunk</a>, for having such a kick-ass data
+analytics platform, and the operational excellence which it embodies.
+
+
+## Contact
+
+- <a href="mailto:doug.muth@gmail.com">Email me</a>
+- <a href="https://twitter.com/dmuth">Twitter</a>
+- <a href="https://facebook.com/dmuth">Facebook</a>
+
+
+
 
 
 
