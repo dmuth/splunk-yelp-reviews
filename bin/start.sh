@@ -21,7 +21,6 @@ then
 	chmod 755 splunk-lab.sh
 fi
 
-export SPLUNK_START_ARGS=--accept-license
 export SPLUNK_PORT=8000
 #export SPLUNK_BG=0 # Debugging
 export DOCKER_NAME=splunk-yelp
