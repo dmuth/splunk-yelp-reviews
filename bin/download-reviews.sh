@@ -6,10 +6,22 @@
 # Errors are fatal
 set -e
 
-# Change to our main directory
-pushd $(dirname $0)/.. > /dev/null
+if test "$1" == "" -o "$1" == "-h" -o "$1" == "--help"
+then
+	echo "! "
+	echo "! Symtax: $0 file"
+	echo "! "
+	echo "! file - Text file of Yelp venue URLs to grab comments from."
+	echo "! "
+	exit 1
+fi
 
-for URL in $(cat urls.txt)
+URLS=$1
+
+THIS_DIR=$(dirname $0)
+
+
+for URL in $(cat $URLS)
 do
 	TARGET=logs/$(echo $URL | sed -e "s/.*\///").json
 	if test -f $TARGET
@@ -19,7 +31,7 @@ do
 	fi
 
 	TMP=$(mktemp -t yelp-reviews)
-	./bin/download-reviews.py $URL > $TMP
+	$THIS_DIR/download-reviews.py $URL > $TMP
 	mv $TMP $TARGET
 
 done
