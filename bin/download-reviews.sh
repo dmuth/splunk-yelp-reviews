@@ -30,7 +30,7 @@ do
 		continue
 	fi
 
-	TMP=$(mktemp -t yelp-reviews)
+	TMP=$(mktemp)
 	$THIS_DIR/download-reviews.py $URL > $TMP
 	mv $TMP $TARGET
 
