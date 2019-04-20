@@ -15,11 +15,13 @@ do
 	if test -f $TARGET
 	then
 		echo "# Target '${TARGET}' exists, skipping..."
+		continue
 	fi
 
 	TMP=$(mktemp -t yelp-reviews)
 	./download-reviews.py $URL > $TMP
 	mv $TMP $TARGET
+
 done
 
 
