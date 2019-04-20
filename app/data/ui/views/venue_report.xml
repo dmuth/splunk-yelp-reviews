@@ -1,4 +1,4 @@
-<form>
+<form theme="dark">
   <label>Venue Report</label>
   <fieldset submitButton="false" autoRun="true">
     <input type="time" token="field1" searchWhenChanged="true">
@@ -98,7 +98,7 @@
       <title>Tag Cloud for Positive Reviews (4+ Stars)</title>
       <viz type="wordcloud_app.wordcloud">
         <search>
-          <query>index=main venue="@Ramen" stars &gt;= 4 | eval words=split(review, " ") | stats count by words 
+          <query>index=main venue="$venue$" stars &gt;= 4 | eval words=split(review, " ") | stats count by words 
 | search NOT (words="this" OR words="that" )
 | search NOT (words="*&amp;*" OR words="*;*")
 | eval len=len(words) |search len &gt;= $min_word_length$ AND count &gt;= $min_word_count$ |fields words count | sort -count | head $max_num_tags$</query>
@@ -126,7 +126,7 @@
       <title>Tag Cloud for Negative Reviews (1-2 Stars)</title>
       <viz type="wordcloud_app.wordcloud">
         <search>
-          <query>index=main venue="@Ramen" stars &lt;= 2 | eval words=split(review, " ") | stats count by words 
+          <query>index=main venue="$venue$" stars &lt;= 2 | eval words=split(review, " ") | stats count by words 
 | search NOT (words="this" OR words="that" )
 | search NOT (words="*&amp;*" OR words="*;*")
 | eval len=len(words) |search len &gt;= $min_word_length$ AND count &gt;= $min_word_count$ |fields words count | sort -count | head $max_num_tags$</query>
@@ -149,6 +149,46 @@
         <option name="wordcloud_app.wordcloud.splunkTastic">false</option>
         <option name="wordcloud_app.wordcloud.useColors">true</option>
       </viz>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Most Recent Positive Reviews</title>
+      <table>
+        <search>
+          <query>index=main venue="$venue$" stars &gt;= 4 | eval Date=strftime(_time, "%Y-%m-%d") | head 5 | table Date review | rename review as Review</query>
+          <earliest>0</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Most Recent Negative Reviews</title>
+      <table>
+        <search>
+          <query>index=main venue="$venue$" stars &lt;= 2 | eval Date=strftime(_time, "%Y-%m-%d") | head 5 | table Date review | rename review as Review</query>
+          <earliest>0</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
     </panel>
   </row>
 </form>
