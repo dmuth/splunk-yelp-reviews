@@ -19,7 +19,7 @@ do
 	fi
 
 	TMP=$(mktemp -t yelp-reviews)
-	./download-reviews.py $URL > $TMP
+	./bin/download-reviews.py $URL > $TMP
 	mv $TMP $TARGET
 
 done
