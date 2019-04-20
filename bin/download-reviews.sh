@@ -11,7 +11,7 @@ pushd $(dirname $0)/.. > /dev/null
 
 for URL in $(cat urls.txt)
 do
-	TARGET=logs/$(echo $URL | sed -e "s/.*\///")
+	TARGET=logs/$(echo $URL | sed -e "s/.*\///").json
 	if test -f $TARGET
 	then
 		echo "# Target '${TARGET}' exists, skipping..."
