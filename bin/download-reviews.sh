@@ -9,17 +9,18 @@ set -e
 # Change to our main directory
 pushd $(dirname $0)/.. > /dev/null
 
+for URL in $(cat urls.txt)
+do
+	TARGET=logs/$(echo $URL | sed -e "s/.*\///")
+	if test -f $TARGET
+	then
+		echo "# Target '${TARGET}' exists, skipping..."
+	fi
 
-FILE=$(mktemp -t yelp-reviews)
-./download-reviews.py https://www.yelp.com/biz/ramen-philadelphia > $FILE
-mv $FILE logs/ramen-philadelphia.txt
+	TMP=$(mktemp -t yelp-reviews)
+	./download-reviews.py $URL > $TMP
+	mv $TMP $TARGET
+done
 
-FILE=$(mktemp -t yelp-reviews)
-./download-reviews.py https://www.yelp.com/biz/yanako-philadelphia > $FILE
-mv $FILE logs/yanako-philadelphia.txt
-
-FILE=$(mktemp -t yelp-reviews)
-./download-reviews.py https://www.yelp.com/biz/chabaa-thai-bistro-philadelphia > $FILE
-mv $FILE logs/chabaa-thai-bistro-philadelphia
 
 
