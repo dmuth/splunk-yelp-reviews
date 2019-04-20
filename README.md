@@ -26,7 +26,7 @@ app I built to effortlessly run Splunk in a Docker container.
 ## Installation
 
 - `pip3 install -r ./requirements.txt` - Install required Python modules
-- `./bin/download-reviews.sh ./urls.txt` - Download reviews from Yelp. Change `urls.txt` with URLs for different venues on Yelp as needed.
+- `./bin/download-reviews.sh ./urls.txt` - Download reviews from Yelp. Change `urls.txt` with URLs for different venues on Yelp as needed.  This does not use the API, because the API only returns like 3 reviews, which is silly. Instead, I grab the page contents and use <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup</a> to parse the HTML contents.
 - `SPLUNK_PASSWORD=password1 SPLUNK_START_ARGS=--accept-license ./bin/start.sh` - Start Splunk!
 - Go to <a href="https://localhost:8000/en-US/app/search/venue_report">https://localhost:8000/en-US/app/search/venue_report</a>, log in with the password you set, and you'll see the Yelp Reviews Dashboard.
 
