@@ -49,6 +49,7 @@ def parseHtml(soup):
 	retval = []
 
 	venue = soup.title.text.split(" - ")[0]
+	venue = re.sub("[^A-Za-z0-9 ]", "", venue)
 	
 	for review in soup.find_all("div", {"class": "review-content"}):
 
