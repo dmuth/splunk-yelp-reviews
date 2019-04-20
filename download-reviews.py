@@ -11,14 +11,15 @@ import datetime
 import json
 import logging
 import re
+import sys
 
 from bs4 import BeautifulSoup
 import requests
 
+
 logging.basicConfig(level = logging.INFO, format='%(asctime)s.%(msecs)03d: %(levelname)s: %(message)s',
 	datefmt = '%Y-%m-%d %H:%M:%S'
 	)
-
 
 
 parser = argparse.ArgumentParser(description = "Download comments from a Yelp page")
@@ -46,10 +47,13 @@ def getHtml(url):
 def parseHtml(soup):
 
 	retval = []
+
+	venue = soup.title.text.split(" - ")[0]
 	
 	for review in soup.find_all("div", {"class": "review-content"}):
 
 		row = {}
+		row["venue"] = venue
 		
 		#
 		# Parse our date
