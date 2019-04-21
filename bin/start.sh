@@ -25,6 +25,8 @@ export SPLUNK_PORT=8000
 #export SPLUNK_BG=0 # Debugging
 export DOCKER_NAME=splunk-yelp
 export DOCKER_RM=1
+export DOCKER_CMD="-v $(pwd)/user-prefs.conf:/opt/splunk/etc/users/admin/user-prefs/local/user-prefs.conf"
+
 
 ./splunk-lab.sh
 

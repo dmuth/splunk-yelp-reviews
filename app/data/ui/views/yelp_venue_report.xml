@@ -1,5 +1,5 @@
 <form theme="dark">
-  <label>Venue Report</label>
+  <label>Yelp Venue Report</label>
   <fieldset submitButton="false" autoRun="true">
     <input type="time" token="field1" searchWhenChanged="true">
       <label></label>
