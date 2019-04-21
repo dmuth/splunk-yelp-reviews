@@ -1,0 +1,40 @@
+<form>
+  <label>Venues Sorted By Rating</label>
+  <fieldset submitButton="false">
+    <input type="dropdown" token="num_ratings" searchWhenChanged="true">
+      <label>Min # of Ratings</label>
+      <choice value="1">1</choice>
+      <choice value="5">5</choice>
+      <choice value="10">10</choice>
+      <choice value="50">50</choice>
+      <choice value="100">100</choice>
+      <default>1</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>index=main | stats avg(stars) AS avg count(stars) AS num by venue 
+| where num &gt;= $num_ratings$
+| eval avg = round(avg, 1) 
+| sort -avg 
+| rename venue as "Venue"
+| rename avg as "Avg Rating"
+| rename num as "Num Ratings"</query>
+          <earliest>0</earliest>
+          <latest></latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</form>
