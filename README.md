@@ -53,6 +53,12 @@ I'd like to thank <a href="http://splunk.com/">Splunk</a>, for having such a kic
 analytics platform, and the operational excellence which it embodies.
 
 
+## Copyright
+
+Splunk is copyright by Splunk.  Apps within Splunk Lab are copyright their creators,
+and made available under the respective license.  
+
+
 ## Contact
 
 - <a href="mailto:doug.muth@gmail.com">Email me</a>
