@@ -68,9 +68,12 @@ def parseHtml(soup):
 
 
 		#
-		# Grab our review
+		# Grab our review, and turn newlines into spaces.
 		#
-		row["review"] = review.find_all("p")[0].text
+		html = review.find_all("p")[0]
+		for br in html.find_all("br"):
+			br.replace_with(" ")
+		row["review"] = html.text
 
 
 		#
