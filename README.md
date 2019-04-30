@@ -27,14 +27,13 @@ app I built to effortlessly run Splunk in a Docker container.
 ## Requirements
 
 - Docker
-- Python 3
 
 
-## Installation
+## Docker
 
-- `pip3 install -r ./requirements.txt` - Install required Python modules
-- `./bin/download-reviews-from-url.sh ./urls.txt` - Download reviews from Yelp. Change `urls.txt` with URLs for different venues on Yelp as needed.  This does not use the API, because the API only returns like 3 reviews, which is silly. Instead, I grab the page contents and use <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup</a> to parse the HTML contents.
-   - Note that I included some reviews in `logs/`, so if you skip this step and instead just start up Splunk, you'll be able to see some pre-populated dashboards!
+- `./download-from-yelp.sh urls.txt`
+   - Download reviews from Yelp. Change `urls.txt` with URLs for different venues on Yelp as needed.  This does not use the API, because the API only returns like 3 reviews, which is silly. Instead, I grab the page contents and use <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup</a> to parse the HTML contents.
+      - Note that I included some reviews in `logs/`, so if you skip this step and instead just start up Splunk, you'll be able to see some pre-populated dashboards!
 - `SPLUNK_PASSWORD=password1 SPLUNK_START_ARGS=--accept-license ./bin/start.sh` - Start Splunk!
 - Go to <a href="https://localhost:8000/">https://localhost:8000/</a>, log in with the password you set, and you'll see the Yelp Reviews Dashboard.
 

@@ -17,5 +17,10 @@ echo "# Building Docker container..."
 echo "# "
 docker build . -t splunk-yelp-python
 
+echo "# "
+echo "# Tagging container..."
+echo "# "
+docker tag splunk-yelp-python dmuth1/splunk-yelp-python
+
 echo "# Done!"
 
