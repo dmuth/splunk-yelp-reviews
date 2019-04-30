@@ -32,8 +32,7 @@ app I built to effortlessly run Splunk in a Docker container.
 ## Docker
 
 - `./download-from-yelp.sh urls.txt`
-   - Download reviews from Yelp. Change `urls.txt` with URLs for different venues on Yelp as needed.  This does not use the API, because the API only returns like 3 reviews, which is silly. Instead, I grab the page contents and use <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup</a> to parse the HTML contents.
-      - Note that I included some reviews in `logs/`, so if you skip this step and instead just start up Splunk, you'll be able to see some pre-populated dashboards!
+   - Download reviews from Yelp. The file `urls.txt` should contain one URL per line, and each URL should be a venue's page on Yelp <a href="https://www.yelp.com/biz/john-henrys-pub-ardmore">such as this one</a>  This does not use the API, because the API only returns like 3 reviews, which is silly. Instead, I grab the page contents and use <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup</a> to parse the HTML contents.
 - `SPLUNK_PASSWORD=password1 SPLUNK_START_ARGS=--accept-license ./bin/start.sh` - Start Splunk!
 - Go to <a href="https://localhost:8000/">https://localhost:8000/</a>, log in with the password you set, and you'll see the Yelp Reviews Dashboard.
 
@@ -43,7 +42,16 @@ When done, run `./bin/stop.sh` or `./bin/clean.sh` to stop Splunk or clean up.
 ## Troubleshooting
 
 - Q: Dashboards show ` Search is waiting for input...`
-- A: You need to select a venue in the dropdown!  If no items are in the dropdown, that means no data was ingested.  Did you run `./bin/download-reviews.sh`?
+- A: You need to select a venue in the dropdown!  If no items are in the dropdown, that means no data was ingested.  Did you run the command to download some Yelp reviews?
+
+
+## Development
+
+Mostly for my benefit, these are the scripts that I use to make my life easier:
+
+- `./bin/build.sh` - Build the Python Docker container
+- `./bin/push.sh` - Upload the Docker container to Docker Hub
+- `./bin/devel.sh` - Build and run the Docker container with an interactive shell
 
 
 ## Credits
