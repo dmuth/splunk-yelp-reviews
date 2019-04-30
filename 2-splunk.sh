@@ -23,6 +23,18 @@ DOCKER_PORT="-p ${SPLUNK_PORT}:8000"
 DOCKER_LOGS="-v $(pwd)/logs:/logs"
 DOCKER_DATA="-v $(pwd)/${SPLUNK_DATA}:/data"
 
+#
+# Create our user-prefs.conf which will be pulled into Splunk at runtime
+# to set the default app.
+#
+cat > user-prefs.conf << EOF
+#
+# Created by Splunk Yelp
+#
+[general]
+default_namespace = search
+EOF
+
 echo "# "
 echo "# About to run Splunk Yelp!"
 echo "# "
