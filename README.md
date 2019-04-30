@@ -33,7 +33,7 @@ app I built to effortlessly run Splunk in a Docker container.
 
 - `bash <(curl -s https://raw.githubusercontent.com/dmuth/splunk-yelp-reviews/master/1-download-from-yelp.sh) ./urls.txt`
    - Download reviews from Yelp. The file `urls.txt` should contain one URL per line, and each URL should be a venue's page on Yelp <a href="https://www.yelp.com/biz/john-henrys-pub-ardmore">such as this one</a>.  This does not use the API, because the API only returns like 3 reviews, which is silly. Instead, I grab the page contents and use <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup</a> to parse the HTML contents.
-- `SPLUNK_PASSWORD=password1 SPLUNK_START_ARGS=--accept-license ./bin/start.sh` - Start Splunk!
+- `SPLUNK_PASSWORD=password1 SPLUNK_START_ARGS=--accept-license ./2-splunk.sh` - Start Splunk!
 - Go to <a href="https://localhost:8000/">https://localhost:8000/</a>, log in with the password you set, and you'll see the Yelp Reviews Dashboard.
 
 
