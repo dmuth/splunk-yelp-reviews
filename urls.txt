@@ -1,1 +1,4 @@
-urls-ardmore.txt
+https://www.yelp.com/biz/john-henrys-pub-ardmore
+https://www.yelp.com/biz/bella-italia-ardmore
+https://www.yelp.com/biz/mccloskeys-tavern-ardmore
+https://www.yelp.com/biz/wawa-ardmore
