@@ -1,8 +1,7 @@
 
 .git/
 
-data/
-app/
+splunk-data/
 
 logs/
 
