@@ -52,6 +52,9 @@ Mostly for my benefit, these are the scripts that I use to make my life easier:
 - `./bin/build.sh` - Build the Python Docker container
 - `./bin/push.sh` - Upload the Docker container to Docker Hub
 - `./bin/devel.sh` - Build and run the Docker container with an interactive shell
+- `./bin/stop.sh` - Stop the Splunk container
+- `./bin/clean.sh` - Stop Splunk, and remove the data and logs
+
 
 
 ## Credits
