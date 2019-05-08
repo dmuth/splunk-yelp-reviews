@@ -103,6 +103,21 @@ echo "# Login/Password:                    admin/${SPLUNK_PASSWORD} (Set with \$
 echo "# Splunk Data Directory:             ${SPLUNK_DATA} (Set with \$SPLUNK_DATA)"
 echo "# "
 
+if test "$SPLUNK_PASSWORD" == "password1"
+then
+	echo "# "
+	echo "# PLEASE NOTE THAT YOU USED THE DEFAULT PASSWORD"
+	echo "# "
+	echo "# If you are testing this on localhost, you are probably fine."
+	echo "# If you are not, then PLEASE use a different password for safety."
+	echo "# If you have trouble coming up with a password, I have a utility "
+	echo "# at https://diceware.dmuth.org/ which will help you pick a password "
+	echo "# that can be remembered."
+	echo "# "
+	exit 1
+fi
+
+
 echo "> "
 echo "> Press ENTER to run Splunk Yelp with the above settings, or ctrl-C to abort..."
 echo "> "
