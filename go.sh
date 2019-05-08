@@ -114,7 +114,6 @@ then
 	echo "# at https://diceware.dmuth.org/ which will help you pick a password "
 	echo "# that can be remembered."
 	echo "# "
-	exit 1
 fi
 
 
