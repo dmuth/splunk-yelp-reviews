@@ -40,6 +40,18 @@ then
 	exit 1
 fi
 
+PASSWORD_LEN=${#SPLUNK_PASSWORD}
+if test $PASSWORD_LEN -lt 8
+then
+	echo "! "
+	echo "! "
+	echo "! Admin password needs to be at least 8 characters!"
+	echo "! "
+	echo "! Password specified: ${SPLUNK_PASSWORD}"
+	echo "! "
+	echo "! "
+	exit 1
+fi
 
 if test "$1" == "--devel"
 then
