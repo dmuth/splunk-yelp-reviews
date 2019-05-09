@@ -60,7 +60,7 @@ I'd like to thank <a href="http://splunk.com/">Splunk</a>, for having such a kic
 analytics platform, and the operational excellence which it embodies.
 
 Also:
-- <a href="http://patorjk.com/software/taag/">This text to ASCII art generator</a>, for the logo I used in the script.
+- <a href="http://patorjk.com/software/taag/#p=display&h=0&v=0&f=Standard&t=Splunk%20Lab">This text to ASCII art generator</a>, for the logo I used in the script.
 
 
 ## Copyright
