@@ -17,10 +17,13 @@ SPLUNK_DATA=${SPLUNK_DATA:-splunk-data}
 DOCKER_IT=""
 DOCKER_V=""
 
+DEVEL_PYTHON=""
+DEVEL_SPLUNK=""
+
 if test ! "$1" -o "$1" == "-h" -o "$1" == "--help"
 then
 	echo "! "
-	echo "! Syntax: $0 ( --devel | --url URL | file.txt )"
+	echo "! Syntax: $0 ( --url URL | file.txt )"
 	echo "! "
 	echo "! file.txt - File containing one URL per line to download."
 	echo "! "
@@ -53,14 +56,26 @@ then
 	exit 1
 fi
 
-if test "$1" == "--devel"
+
+ARG1=""
+ARG2=""
+
+if test "$1" == "--devel-python"
 then
 	DOCKER_IT="-it"
 	DOCKER_V="-v $(pwd)/bin:/app"
+	DEVEL_PYTHON=1
+	ARG1="--devel"
+
+elif test "$1" == "--devel-splunk"
+then
+	DEVEL_SPLUNK=1
 
 elif test "$1" == "--url"
 then
 	URL=$2
+	ARG1="--url"
+	ARG2=$URL
 
 else
 	FILE=$1
@@ -72,6 +87,8 @@ else
 		exit 1
 	fi
 
+	ARG1="$FILE"
+
 fi
 
 
@@ -80,7 +97,15 @@ echo "# Downloading Yelp reviews..."
 echo "# "
 DOCKER_V_MNT="-v $(pwd):/mnt"
 DOCKER_V_LOGS="-v $(pwd)/logs:/logs"
-docker run ${DOCKER_IT} ${DOCKER_V} ${DOCKER_V_LOGS} -v $(pwd):/mnt  dmuth1/splunk-yelp-python $@
+if test ! "$DEVEL_SPLUNK"
+then
+	docker run ${DOCKER_IT} ${DOCKER_V} ${DOCKER_V_LOGS} -v $(pwd):/mnt  dmuth1/splunk-yelp-python $ARG1 $ARG2
+fi
+
+if test "$DEVEL_PYTHON"
+then
+	exit 1
+fi
 
 
 #
@@ -147,9 +172,16 @@ read
 CMD="${DOCKER_RM} ${DOCKER_NAME} ${DOCKER_PORT} ${DOCKER_LOGS} ${DOCKER_DATA} ${DOCKER_V}"
 CMD="${CMD} -e SPLUNK_START_ARGS=${SPLUNK_START_ARGS}"
 CMD="${CMD} -e SPLUNK_PASSWORD=${SPLUNK_PASSWORD}"
-CMD="${CMD} -d"
 
-ID=$(docker run $CMD dmuth1/splunk-yelp)
+if test ! "$DEVEL_SPLUNK"
+then
+	ID=$(docker run $CMD -d dmuth1/splunk-yelp)
+
+else
+	DOCKER_V_APP="-v $(pwd)/app:/app"
+	docker run $CMD ${DOCKER_V_MNT} ${DOCKER_V_APP} -it dmuth1/splunk-yelp bash
+
+fi
 
 echo "# "
 echo "# Splunk Yelp launched with Docker ID: "
