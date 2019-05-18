@@ -45,6 +45,22 @@
   </fieldset>
   <row>
     <panel>
+      <title>Venue</title>
+      <single>
+        <search>
+          <query>index=main venue="$venue$" | head 1 | table venue</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="height">50</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
       <title>Rating Over Time</title>
       <chart>
         <search>
