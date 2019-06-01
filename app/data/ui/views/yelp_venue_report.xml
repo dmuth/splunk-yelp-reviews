@@ -111,49 +111,17 @@
   </row>
   <row>
     <panel>
-      <title>Tag Cloud for Positive Reviews (4+ Stars)</title>
+      <title>Tag Cloud for Reviews with Positive Sentiment</title>
       <viz type="wordcloud_app.wordcloud">
         <search>
-          <query>index=main venue="$venue$" stars &gt;= 4 
-| eval words=split(review, " ") 
-| eval words=trim(words, " .,")
+          <query>index=main index=main venue="$venue$"
+| vader textfield=review full_output=f
+| search sentiment &gt; 0
+| eval words=split(review, " ")  | mvexpand words | table words
+| cleantext textfield=words keep_orig=f remove_stopwords=t term_min_len=$min_word_length$
 | stats count by words 
-| search NOT (
-words="this" 
-OR words="about"
-OR words="also"
-OR words="been"
-OR words="could"
-OR words="from"
-OR words="even"
-OR words="have"
-OR words="here"
-OR words="it's"
-OR words="i've"
-OR words="just"
-OR words="like"
-OR words="more"
-OR words="only"
-OR words="other"
-OR words="really"
-OR words="some"
-OR words="that"
-OR words="the"
-OR words="their"
-OR words="there"
-OR words="they"
-OR words="were"
-OR words="will"
-OR words="with"
-OR words="what"
-OR words="when"
-OR words="which"
-OR words="would"
-OR words="very"
-OR words="you're"
-)
-| search NOT (words="*&amp;*" OR words="*;*")
-| eval len=len(words) |search len &gt;= $min_word_length$ AND count &gt;= $min_word_count$ |fields words count | sort -count | head $max_num_tags$</query>
+| search count &gt;= $min_word_count$
+| sort -count | head $max_num_tags$</query>
           <earliest>$field1.earliest$</earliest>
           <latest>$field1.latest$</latest>
           <sampleRatio>1</sampleRatio>
@@ -175,49 +143,17 @@ OR words="you're"
       </viz>
     </panel>
     <panel>
-      <title>Tag Cloud for Negative Reviews (1-2 Stars)</title>
+      <title>Tag Cloud for Reviews with Negative Sentiment</title>
       <viz type="wordcloud_app.wordcloud">
         <search>
-          <query>index=main venue="$venue$" stars &lt;= 2 
-| eval words=split(review, " ") 
-| eval words=trim(words, " .,")
+          <query>index=main index=main venue="$venue$"
+| vader textfield=review full_output=f
+| search sentiment &lt;= 0
+| eval words=split(review, " ")  | mvexpand words | table words
+| cleantext textfield=words keep_orig=f remove_stopwords=t term_min_len=$min_word_length$
 | stats count by words 
-| search NOT (
-words="this" 
-OR words="about"
-OR words="also"
-OR words="been"
-OR words="could"
-OR words="even"
-OR words="from"
-OR words="have"
-OR words="here"
-OR words="it's"
-OR words="i've"
-OR words="just"
-OR words="like"
-OR words="more"
-OR words="only"
-OR words="other"
-OR words="really"
-OR words="some"
-OR words="that"
-OR words="the"
-OR words="their"
-OR words="there"
-OR words="they"
-OR words="were"
-OR words="will"
-OR words="with"
-OR words="what"
-OR words="when"
-OR words="which"
-OR words="would"
-OR words="very"
-OR words="you're"
-)
-| search NOT (words="*&amp;*" OR words="*;*")
-| eval len=len(words) |search len &gt;= $min_word_length$ AND count &gt;= $min_word_count$ |fields words count | sort -count | head $max_num_tags$</query>
+| search count &gt;= $min_word_count$
+| sort -count | head $max_num_tags$</query>
           <earliest>$field1.earliest$</earliest>
           <latest>$field1.latest$</latest>
           <sampleRatio>1</sampleRatio>

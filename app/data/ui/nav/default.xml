@@ -1,6 +1,7 @@
 <nav search_view="search">
   <view name="yelp_venue_report" default="true" />
-  <view name="venues_sorted_by_rating" default="true" />
+  <view name="venues_sorted_by_rating" />
+  <view name="demo_of_different_tag_clouds" />
   <view name="search"  />
   <view name="dashboards" />
 </nav>
