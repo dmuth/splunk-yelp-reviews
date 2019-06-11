@@ -127,7 +127,7 @@ cat > user-prefs.conf << EOF
 # Created by Splunk Yelp
 #
 [general]
-default_namespace = search
+default_namespace = splunk-lab
 EOF
 
 echo
