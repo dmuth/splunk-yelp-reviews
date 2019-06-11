@@ -127,7 +127,7 @@ cat > user-prefs.conf << EOF
 # Created by Splunk Yelp
 #
 [general]
-default_namespace = splunk-lab
+default_namespace = splunk-yelp
 EOF
 
 echo
@@ -180,7 +180,7 @@ then
 	ID=$(docker run $CMD -d dmuth1/splunk-yelp)
 
 else
-	DOCKER_V_APP="-v $(pwd)/app:/app"
+	DOCKER_V_APP="-v $(pwd)/app:/opt/splunk/etc/apps/splunk-yelp/local"
 	docker run $CMD ${DOCKER_V_MNT} ${DOCKER_V_APP} -it dmuth1/splunk-yelp bash
 
 fi

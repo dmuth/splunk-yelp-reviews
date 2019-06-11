@@ -8,6 +8,17 @@
         <latest></latest>
       </default>
     </input>
+    <input type="dropdown" token="span" searchWhenChanged="true">
+      <label>Span</label>
+      <choice value="1y">1 Year</choice>
+      <choice value="6mon">6 Months</choice>
+      <choice value="3mon">3 Months</choice>
+      <choice value="1mon">1 Month</choice>
+      <choice value="1w">1 Week</choice>
+      <choice value="1d">1 Day</choice>
+      <default>1mon</default>
+      <initialValue>1mon</initialValue>
+    </input>
     <input type="dropdown" token="venue" searchWhenChanged="true">
       <label>Venue</label>
       <fieldForLabel>venue</fieldForLabel>
@@ -65,7 +76,7 @@
       <chart>
         <search>
           <query>index=main venue="$venue$" 
-| timechart avg(stars) AS "Avg Rating" count(stars) AS "Num Ratings"</query>
+| timechart span=$span$ avg(stars) AS "Avg Rating" count(stars) AS "Num Ratings"</query>
           <earliest>$field1.earliest$</earliest>
           <latest>$field1.latest$</latest>
           <sampleRatio>1</sampleRatio>
