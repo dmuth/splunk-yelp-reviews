@@ -14,7 +14,7 @@ pushd $(dirname $0)/..
 echo "# "
 echo "# Removing data and logs..."
 echo "# "
-rm -rfv data/ logs/
+rm -rfv splunk-data/ logs/
 mkdir logs/
 touch logs/empty
 
